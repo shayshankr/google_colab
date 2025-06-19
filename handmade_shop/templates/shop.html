@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Shop - Handmade Shop</title>
+</head>
+<body>
+    <h1>Shop</h1>
+    <p>Item: {{ item.name }} - €{{ '%.2f'|format(item.price / 100) }}</p>
+    <form action="{{ url_for('create_checkout_session') }}" method="post">
+        <button type="submit">Buy with Stripe</button>
+    </form>
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+</body>
+</html>
