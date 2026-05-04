@@ -18,8 +18,10 @@ For detailed design, validate with project standards and local codes.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Dict, Literal
+import argparse
+import json
 
 UsageType = Literal["office", "retail", "classroom", "residential", "conference"]
 GlassType = Literal["single_clear", "double_clear", "double_low_e", "reflective"]
@@ -211,31 +213,45 @@ def e20_heat_load(inputs: ZoneInputs) -> Dict[str, float]:
 
 
 def _demo() -> None:
-    example = ZoneInputs(
-        latitude=19.07,
-        city="Mumbai",
-        usage_type="office",
-        occupancy=25,
-        floor_area_m2=120.0,
-        glass_type="double_low_e",
-        shading_type="internal_blinds",
-        window_area_m2=24.0,
-        window_orientation="W",
-        wall_type="medium",
-        wall_area_m2=95.0,
-        wall_orientation="W",
-        electronic_load_w=5500.0,
+    """CLI entrypoint that takes user-provided values instead of fixed defaults."""
+    parser = argparse.ArgumentParser(description="E20-style HVAC heat load calculator")
+    parser.add_argument("--input-json", help="Path to JSON file with ZoneInputs fields")
+    parser.add_argument("--print-template", action="store_true", help="Print JSON template and exit")
+    args = parser.parse_args()
+
+    template = asdict(
+        ZoneInputs(
+            latitude=0.0,
+            city="CityName",
+            usage_type="office",
+            occupancy=0,
+            floor_area_m2=0.0,
+            glass_type="double_clear",
+            shading_type="none",
+            window_area_m2=0.0,
+            window_orientation="N",
+            wall_type="medium",
+            wall_area_m2=0.0,
+            wall_orientation="N",
+            electronic_load_w=0.0,
+        )
     )
 
-    result = e20_heat_load(example)
-    print("=== E20 Cooling Load Summary ===")
-    for k, v in result.items():
-        if "factor" in k or k in {"rshf", "eshf", "gshf"}:
-            print(f"{k:30s}: {v:.3f}")
-        elif "air" in k and "lps" not in k:
-            print(f"{k:30s}: {v:.1f}")
-        else:
-            print(f"{k:30s}: {v:.2f}")
+    if args.print_template:
+        print(json.dumps(template, indent=2))
+        return
+
+    if not args.input_json:
+        raise SystemExit(
+            "Provide user values using --input-json <file>. Use --print-template to generate the expected format."
+        )
+
+    with open(args.input_json, "r", encoding="utf-8") as f:
+        payload = json.load(f)
+
+    inputs = ZoneInputs(**payload)
+    result = e20_heat_load(inputs)
+    print(json.dumps(result, indent=2))
 
 
 if __name__ == "__main__":
