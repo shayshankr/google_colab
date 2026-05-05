@@ -1,0 +1,33 @@
+<!doctype html><html><body>
+<h2>HVAC E20 Heat Load App</h2>
+<form method="post">
+  <input name="latitude" placeholder="Latitude" value="28.6139" required>
+  <input name="city" placeholder="City" value="Delhi" required>
+  <input name="usage_type" placeholder="Usage (office)" value="office" required>
+  <input name="occupancy" placeholder="Occupancy" value="40" required>
+  <input name="floor_area_m2" placeholder="Floor area" value="180" required>
+  <input name="electronic_load_w" placeholder="Electronic load W" value="8000" required>
+  <input name="indoor_dbt_c" placeholder="Indoor DBT" value="24" required>
+  <input name="indoor_rh" placeholder="Indoor RH" value="50" required>
+  <input name="supply_air_temp_c" placeholder="Supply air temp" value="14" required>
+  <h3>Boundaries (add/remove rows in HTML as needed)</h3>
+  <div>
+    <input name="b_name" value="Wall-1"><input name="b_type" value="wall"><input name="b_area" value="30"><input name="b_orientation" value="W"><input name="b_wall_type" value="medium"><input name="b_glass_type"><input name="b_shading" value="none"><input name="b_u_value">
+  </div>
+  <div>
+    <input name="b_name" value="Wall-2"><input name="b_type" value="wall"><input name="b_area" value="30"><input name="b_orientation" value="E"><input name="b_wall_type" value="medium"><input name="b_glass_type"><input name="b_shading" value="none"><input name="b_u_value">
+  </div>
+  <div>
+    <input name="b_name" value="Wall-3"><input name="b_type" value="wall"><input name="b_area" value="25"><input name="b_orientation" value="N"><input name="b_wall_type" value="medium"><input name="b_glass_type"><input name="b_shading" value="none"><input name="b_u_value">
+  </div>
+  <div>
+    <input name="b_name" value="Wall-4"><input name="b_type" value="wall"><input name="b_area" value="25"><input name="b_orientation" value="S"><input name="b_wall_type" value="medium"><input name="b_glass_type"><input name="b_shading" value="none"><input name="b_u_value">
+  </div>
+  <div>
+    <input name="b_name" value="Window-1"><input name="b_type" value="window"><input name="b_area" value="8"><input name="b_orientation" value="W"><input name="b_wall_type"><input name="b_glass_type" value="double_low_e"><input name="b_shading" value="internal_blinds"><input name="b_u_value">
+  </div>
+  <button type="submit">Calculate</button>
+</form>
+{% if errors %}<h3>Errors</h3><ul>{% for e in errors %}<li>{{e}}</li>{% endfor %}</ul>{% endif %}
+{% if result %}<h3>Results</h3><pre>{{result}}</pre>{% endif %}
+</body></html>

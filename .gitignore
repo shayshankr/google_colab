@@ -55,3 +55,8 @@ drivers/
 tmp/
 temp/
 *.tmp
+
+# Python build artifacts
+*.egg-info/
+dist/
+build/

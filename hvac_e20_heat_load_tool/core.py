@@ -120,6 +120,23 @@ class ZoneInputs:
     supply_air_temp_c: float = 14.0
 
 
+def validate_zone_inputs(inputs: ZoneInputs) -> List[str]:
+    errors: List[str] = []
+    if inputs.occupancy < 0:
+        errors.append("Occupancy cannot be negative.")
+    if inputs.floor_area_m2 <= 0:
+        errors.append("Floor area must be greater than 0.")
+    if not (0 <= inputs.indoor_rh <= 100):
+        errors.append("Indoor RH must be between 0 and 100.")
+
+    for b in inputs.boundaries:
+        if b.area_m2 <= 0:
+            errors.append(f"Boundary '{b.name}' area must be greater than 0.")
+        if b.boundary_type == "window" and not b.glass_type:
+            errors.append(f"Boundary '{b.name}' is window but glass_type is missing.")
+    return errors
+
+
 def humidity_ratio_from_tdb_twb(dbt_c: float, wbt_c: float, p_kpa: float = 101.325) -> float:
     """Approximate humidity ratio (kg/kg dry air) from DBT & WBT."""
     pws_wbt = 0.61078 * 2.71828 ** ((17.2694 * wbt_c) / (wbt_c + 237.29))
@@ -160,6 +177,10 @@ def _boundary_sensible_w(boundary: Boundary, delta_t: float) -> float:
 
 
 def e20_heat_load(inputs: ZoneInputs) -> Dict[str, float]:
+    errors = validate_zone_inputs(inputs)
+    if errors:
+        raise ValueError("; ".join(errors))
+
     city_data = CITY_OUTDOOR_CONDITIONS.get(inputs.city.lower(), CITY_OUTDOOR_CONDITIONS["default"])
     out_dbt, out_wbt = city_data["dbt"], city_data["wbt"]
     delta_t = max(0.0, out_dbt - inputs.indoor_dbt_c)
@@ -226,6 +247,16 @@ def e20_heat_load(inputs: ZoneInputs) -> Dict[str, float]:
     }
 
 
+def cli() -> None:
+    parser = argparse.ArgumentParser(description="E20 HVAC heat load calculator")
+    parser.add_argument("--input-json", required=True)
+    args = parser.parse_args()
+    payload = json.load(open(args.input_json, "r", encoding="utf-8"))
+    payload["boundaries"] = [Boundary(**b) for b in payload.get("boundaries", [])]
+    result = e20_heat_load(ZoneInputs(**payload))
+    print(json.dumps(result, indent=2))
+
+
 def _demo() -> None:
     """CLI entrypoint that takes user-provided values instead of fixed defaults."""
     parser = argparse.ArgumentParser(description="E20-style HVAC heat load calculator")
@@ -250,8 +281,8 @@ def _demo() -> None:
             {"name": "Wall-4", "boundary_type": "wall", "area_m2": 25.0, "orientation": "S", "wall_type": "medium"},
             {"name": "Window-West", "boundary_type": "window", "area_m2": 10.0, "orientation": "W", "glass_type": "double_low_e", "shading_type": "internal_blinds"},
             {"name": "Roof", "boundary_type": "roof", "area_m2": 180.0, "orientation": "HORIZONTAL", "u_value_w_m2k": 1.2},
-            {"name": "Floor", "boundary_type": "floor", "area_m2": 180.0, "orientation": "HORIZONTAL", "u_value_w_m2k": 0.9}
-        ]
+            {"name": "Floor", "boundary_type": "floor", "area_m2": 180.0, "orientation": "HORIZONTAL", "u_value_w_m2k": 0.9},
+        ],
     }
 
     if args.print_template:

@@ -1,6 +1,16 @@
-# Google Colab Repository
+# Project Repository
 
 This repository contains various sample projects:
+
+## 🌡️ HVAC E20 Heat Load Calculator
+
+An E20-style HVAC heat load calculation tool with a CLI and a simple web UI.
+
+```bash
+cd Hvac
+pip install -r requirements.txt
+python -m hvac_e20_heat_load_tool --input-json your_inputs.json
+```
 
 ## 🚀 LinkedIn Job Application System
 
@@ -37,12 +47,12 @@ Then open [http://localhost:5001](http://localhost:5001) in your browser.
 
 ---
 
-## 🛍️ Handmade Shop (Legacy)
+## 🛍️ Handmade Shop
 
 An example e-commerce website built with Flask and Stripe integration.
 
 ```bash
-cd handmade_shop
+cd handmade/handmade_shop
 pip install -r requirements.txt
 python app.py
 ```

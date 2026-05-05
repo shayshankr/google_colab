@@ -1,5 +1,0 @@
-Metadata-Version: 2.4
-Name: hvac-e20-heat-load-tool
-Version: 0.1.0
-Summary: E20-style HVAC heat load calculation tool
-Requires-Python: >=3.9
