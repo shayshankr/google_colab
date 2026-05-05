@@ -1,0 +1,18 @@
+{
+  "latitude": 28.6139,
+  "city": "Delhi",
+  "usage_type": "office",
+  "occupancy": 40,
+  "floor_area_m2": 180.0,
+  "glass_type": "double_low_e",
+  "shading_type": "internal_blinds",
+  "window_area_m2": 30.0,
+  "window_orientation": "W",
+  "wall_type": "medium",
+  "wall_area_m2": 140.0,
+  "wall_orientation": "W",
+  "electronic_load_w": 8000.0,
+  "indoor_dbt_c": 24.0,
+  "indoor_rh": 50.0,
+  "supply_air_temp_c": 14.0
+}
