@@ -9,12 +9,71 @@
   "indoor_rh": 50.0,
   "supply_air_temp_c": 14.0,
   "boundaries": [
-    {"name": "Wall-1", "boundary_type": "wall", "area_m2": 30.0, "orientation": "W", "wall_type": "medium"},
-    {"name": "Wall-2", "boundary_type": "wall", "area_m2": 30.0, "orientation": "E", "wall_type": "medium"},
-    {"name": "Wall-3", "boundary_type": "wall", "area_m2": 25.0, "orientation": "N", "wall_type": "medium"},
-    {"name": "Wall-4", "boundary_type": "wall", "area_m2": 25.0, "orientation": "S", "wall_type": "medium"},
-    {"name": "Window-West", "boundary_type": "window", "area_m2": 10.0, "orientation": "W", "glass_type": "double_low_e", "shading_type": "internal_blinds"},
-    {"name": "Roof", "boundary_type": "roof", "area_m2": 180.0, "orientation": "HORIZONTAL", "u_value_w_m2k": 1.2},
-    {"name": "Floor", "boundary_type": "floor", "area_m2": 180.0, "orientation": "HORIZONTAL", "u_value_w_m2k": 0.9}
+    {
+      "name": "Wall-1",
+      "boundary_type": "wall",
+      "area_m2": 30.0,
+      "orientation": "W",
+      "wall_type": "medium"
+    },
+    {
+      "name": "Wall-2",
+      "boundary_type": "wall",
+      "area_m2": 30.0,
+      "orientation": "E",
+      "wall_type": "medium"
+    },
+    {
+      "name": "Wall-3",
+      "boundary_type": "wall",
+      "area_m2": 25.0,
+      "orientation": "N",
+      "wall_type": "medium"
+    },
+    {
+      "name": "Wall-4",
+      "boundary_type": "wall",
+      "area_m2": 25.0,
+      "orientation": "S",
+      "wall_type": "medium"
+    },
+    {
+      "name": "Roof",
+      "boundary_type": "roof",
+      "area_m2": 180.0,
+      "orientation": "HORIZONTAL",
+      "u_value_w_m2k": 1.2
+    },
+    {
+      "name": "Floor",
+      "boundary_type": "floor",
+      "area_m2": 180.0,
+      "orientation": "HORIZONTAL",
+      "u_value_w_m2k": 0.9
+    },
+    {
+      "name": "Window-West-1",
+      "boundary_type": "window",
+      "area_m2": 8.0,
+      "orientation": "W",
+      "glass_type": "double_low_e",
+      "shading_type": "internal_blinds"
+    },
+    {
+      "name": "Window-East-1",
+      "boundary_type": "window",
+      "area_m2": 6.0,
+      "orientation": "E",
+      "glass_type": "double_clear",
+      "shading_type": "film"
+    },
+    {
+      "name": "Window-North-1",
+      "boundary_type": "window",
+      "area_m2": 4.0,
+      "orientation": "N",
+      "glass_type": "reflective",
+      "shading_type": "none"
+    }
   ]
 }
