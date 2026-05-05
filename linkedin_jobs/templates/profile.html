@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile - LinkedIn Job System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f8f9fa; }
+        .header { background: #0077b5; color: white; padding: 15px 0; }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; margin: 0 15px; padding: 8px 15px; border-radius: 4px; }
+        .nav-links a:hover { background: rgba(255,255,255,0.1); }
+        .container { max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+        .profile-form { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #333; font-weight: bold; }
+        input[type="text"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; box-sizing: border-box; }
+        textarea { resize: vertical; min-height: 80px; }
+        input[type="text"]:focus, textarea:focus { outline: none; border-color: #0077b5; }
+        .btn { background-color: #0077b5; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        .btn:hover { background-color: #005885; }
+        h1 { color: #0077b5; text-align: center; margin-bottom: 30px; }
+        .help-text { font-size: 14px; color: #666; margin-top: 5px; }
+        .profile-tips { background: #e7f3ff; padding: 20px; border-radius: 6px; margin-bottom: 30px; }
+        .profile-tips h3 { color: #0077b5; margin-top: 0; }
+        .profile-tips ul { margin: 10px 0; padding-left: 20px; }
+        .profile-tips li { margin-bottom: 8px; color: #333; }
+        .flash-messages { margin-bottom: 20px; }
+        .flash-message { background-color: #d4edda; color: #155724; padding: 12px; border-radius: 4px; margin-bottom: 10px; border: 1px solid #c3e6cb; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1 style="margin: 0;">👤 Profile</h1>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('job_search') }}">Job Search</a>
+                <a href="{{ url_for('profile') }}">Profile</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="profile-tips">
+            <h3>💡 Profile Tips</h3>
+            <ul>
+                <li><strong>Complete your profile:</strong> A complete profile helps create better job applications</li>
+                <li><strong>Use keywords:</strong> Include relevant skills and technologies in your profile</li>
+                <li><strong>Be specific:</strong> Mention exact years of experience and specific technologies</li>
+                <li><strong>Update regularly:</strong> Keep your profile current with new skills and experience</li>
+            </ul>
+        </div>
+
+        <form method="post" class="profile-form">
+            <h2 style="color: #0077b5; margin-top: 0; text-align: center;">Professional Profile</h2>
+            
+            <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required 
+                       value="{{ profile.name or '' }}"
+                       placeholder="e.g., John Smith">
+                <div class="help-text">Your full professional name</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="title">Professional Title *</label>
+                <input type="text" id="title" name="title" required 
+                       value="{{ profile.title or '' }}"
+                       placeholder="e.g., Senior Software Engineer, Data Scientist, Product Manager">
+                <div class="help-text">Your current or desired job title</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="experience">Years of Experience</label>
+                <input type="text" id="experience" name="experience" 
+                       value="{{ profile.experience or '' }}"
+                       placeholder="e.g., 3 years, 5+ years, Entry level">
+                <div class="help-text">Total years of professional experience</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="skills">Key Skills & Technologies</label>
+                <textarea id="skills" name="skills" 
+                          placeholder="e.g., Python, JavaScript, React, Node.js, AWS, Machine Learning, SQL, Git, Docker">{{ profile.skills or '' }}</textarea>
+                <div class="help-text">List your technical skills, programming languages, tools, and technologies (comma-separated)</div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" class="btn">💾 Update Profile</button>
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="color: #666; font-size: 14px;">
+                <strong>Note:</strong> Your profile information will be used to personalize job applications 
+                and improve search recommendations.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
