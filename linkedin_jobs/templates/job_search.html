@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Job Search - LinkedIn Job System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f8f9fa; }
+        .header { background: #0077b5; color: white; padding: 15px 0; }
+        .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; margin: 0 15px; padding: 8px 15px; border-radius: 4px; }
+        .nav-links a:hover { background: rgba(255,255,255,0.1); }
+        .container { max-width: 800px; margin: 0 auto; padding: 30px 20px; }
+        .search-form { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #333; font-weight: bold; }
+        input[type="text"], select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; box-sizing: border-box; }
+        input[type="text"]:focus, select:focus { outline: none; border-color: #0077b5; }
+        .btn { background-color: #0077b5; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; margin-top: 10px; }
+        .btn:hover { background-color: #005885; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        h1 { color: #0077b5; text-align: center; margin-bottom: 30px; }
+        .help-text { font-size: 14px; color: #666; margin-top: 5px; }
+        .search-tips { background: #e7f3ff; padding: 20px; border-radius: 6px; margin-bottom: 30px; }
+        .search-tips h3 { color: #0077b5; margin-top: 0; }
+        .search-tips ul { margin: 10px 0; padding-left: 20px; }
+        .search-tips li { margin-bottom: 5px; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1 style="margin: 0;">🔍 Job Search</h1>
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('job_search') }}">Job Search</a>
+                <a href="{{ url_for('profile') }}">Profile</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="search-tips">
+            <h3>💡 Search Tips</h3>
+            <ul>
+                <li><strong>Keywords:</strong> Use job titles, skills, or technologies (e.g., "Python Developer", "Data Scientist", "React")</li>
+                <li><strong>Location:</strong> Enter city, state, or "Remote" for remote positions</li>
+                <li><strong>Experience Level:</strong> Filter by career level to find relevant opportunities</li>
+                <li><strong>Combine filters:</strong> Use multiple criteria to narrow down your search results</li>
+            </ul>
+        </div>
+
+        <form method="post" class="search-form">
+            <h2 style="color: #0077b5; margin-top: 0; text-align: center;">Find Your Next Opportunity</h2>
+            
+            <div class="form-group">
+                <label for="keywords">Keywords *</label>
+                <input type="text" id="keywords" name="keywords" required 
+                       placeholder="e.g., Software Engineer, Data Analyst, Marketing Manager">
+                <div class="help-text">Enter job titles, skills, or technologies you're interested in</div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" 
+                           placeholder="e.g., San Francisco, CA or Remote">
+                    <div class="help-text">City, state, or "Remote"</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience_level">Experience Level</label>
+                    <select id="experience_level" name="experience_level">
+                        <option value="">Any Level</option>
+                        <option value="Entry-level">Entry Level</option>
+                        <option value="Mid-level">Mid Level</option>
+                        <option value="Senior">Senior Level</option>
+                        <option value="Executive">Executive</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">🚀 Search Jobs</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="color: #666; font-size: 14px;">
+                <strong>Note:</strong> This demo shows mock job results. In a real implementation, 
+                this would connect to LinkedIn's job search API or use web scraping (following their terms of service).
+            </p>
+        </div>
+    </div>
+</body>
+</html>

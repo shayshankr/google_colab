@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - LinkedIn Job System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background-color: #f8f9fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .login-container { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h1 { color: #0077b5; text-align: center; margin-bottom: 30px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; color: #333; font-weight: bold; }
+        input[type="email"], input[type="password"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; box-sizing: border-box; }
+        input[type="email"]:focus, input[type="password"]:focus { outline: none; border-color: #0077b5; }
+        .btn { background-color: #0077b5; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; margin-top: 10px; }
+        .btn:hover { background-color: #005885; }
+        .flash-messages { margin-bottom: 20px; }
+        .flash-message { background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+        .demo-info { background: #e7f3ff; padding: 15px; border-radius: 4px; margin-top: 20px; font-size: 14px; color: #333; }
+        .back-link { text-align: center; margin-top: 20px; }
+        .back-link a { color: #0077b5; text-decoration: none; }
+        .back-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>🔐 Login</h1>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <form method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn">Login</button>
+        </form>
+        
+        <div class="demo-info">
+            <strong>Demo Credentials:</strong><br>
+            Email: demo@example.com<br>
+            Password: password
+        </div>
+        
+        <div class="back-link">
+            <a href="{{ url_for('index') }}">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>
